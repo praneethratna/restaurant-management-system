@@ -11,8 +11,6 @@ int main(){
 customers.push_back(Customer("rahul", "password", 0, 0, vector<pair<string,int>>()));
 customers.push_back(Customer("jhon", "password1", 0, 0, vector<pair<string,int>>()));
 customers.push_back(Customer("saketh", "password2", 0, 0, vector<pair<string,int>>()));
-customers.push_back(Customer("kaushik", "password3", 0, 0, vector<pair<string,int>>()));
-customers.push_back(Customer("ratna", "password4", 0, 0, vector<pair<string,int>>()));
 customers.push_back(Customer("aditya", "password5", 0, 0, vector<pair<string,int>>()));
 customers.push_back(Customer("aakash", "password6", 0, 0, vector<pair<string,int>>()));
 customers.push_back(Customer("jhon101", "password7", 0, 0, vector<pair<string,int>>()));
@@ -40,20 +38,25 @@ dishes.push_back(Dish("Chocolate", 50, 24, 1));
     cout << "2. Customer Login" << endl;
     cout << "3. Exit" << endl;
     cin >> num;
-    if(num == 1){
-        if(checkadmin()){
-            adminservices();
-        }
+    switch(num){
+        case 1:
+            if(checkadmin()){
+                adminservices();
+            }
+            break;
+        case 2:
+            i = checkcustomer();
+            if(i != 0){
+                customerservices(i);
+            }
+            break;
+        case 3:
+            cout << "Thank you for visiting our Restaurant!" << endl;
+            exit = true;
+            break;
+        default:
+            cout << "Invalid input" << endl;
+            break;
     }
-    if(num == 2){
-        i = checkcustomer();
-        if(i > 0){
-            customerservices(i);
-        }
     }
-    if(num == 3){
-        cout << "Thank you for using our Restaurant." << endl;
-        exit = true;
-    }
-}
 }

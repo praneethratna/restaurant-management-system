@@ -6,10 +6,6 @@
 #include "constants.cpp"
 using namespace std;
 
-void view_dishes(){
-    viewdishes();
-
-}
 void add_dishes_menu()
 {
     string dishname;
@@ -65,9 +61,28 @@ void modify_dish()
 
   }
 }
-void search_by_name()
+
+void delete_dish()
 {
-  searchdish();
+  cout<<"Enter dish name which needs to be deleted: ";
+  string s;
+  int ind;
+  cin>>s;
+  bool fd=0;
+    for(int i=0;i<dishes.size();i++)
+    {
+        if(lower(s)==lower(dishes[i].name))
+        {
+            fd=1;
+            ind=i;
+            break;
+        }
+    }
+    if(fd)
+    {
+        dishes.erase(dishes.begin()+ind);
+        cout << "Dish deleted successfully" << endl;
+    }
 }
 
 void adminservices(){
@@ -78,24 +93,31 @@ void adminservices(){
     cout << "1. View available dishes and quantity" << endl;
     cout << "2. Add new dishes into menu" << endl;
     cout << "3. Modify a particular dish" << endl;
-    cout << "4. Search for a particular dish using its name" << endl;
-    cout << "5. Logout" << endl;
+    cout << "4. Delete a particular dish" << endl;
+    cout << "5. Search for a particular dish using its name" << endl;
+    cout << "6. Logout" << endl;
     cin >> num;
-    if(num == 1){
-        view_dishes();
+    switch(num){
+        case 1:
+            viewdishes();
+            break;
+        case 2:
+            add_dishes_menu();
+            break;
+        case 3:
+            modify_dish();
+            break;
+        case 4:
+            delete_dish();
+            break;
+        case 5:
+            searchdish();
+            break;
+        case 6:
+            exit = true;
+            break;
+        default:
+            cout << "Invalid option!" << endl;
     }
-   if(num == 2){
-        add_dishes_menu();
     }
-    if(num == 3){
-        modify_dish();
-    }
-    if(num == 4){
-        search_by_name();
-    }
-    if(num == 5){
-        cout << "You are successfully logged out" << endl;
-        exit = true;
-    }
-}
 }

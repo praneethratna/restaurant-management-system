@@ -122,5 +122,13 @@ void searchdish(){
         cout << "The dish that you are searching is not available to order!"<<endl;
     }
 
+}
 
+int searchcart(int i, string s){
+    for(int j=0;j<customers[i].orders.size();j++){
+        if(lower(customers[i].orders[j].first) == lower(s)){
+            return j;
+        }
+    }
+    return -1;
 }

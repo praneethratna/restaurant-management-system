@@ -57,6 +57,36 @@ cin >> dish;
 vote(dish);
 }
 
+void editcart(int i){
+    cout << "Enter the dish name to be edited: " << endl;
+    string dish;
+    cin >> dish;
+    int j = searchcart(i, dish);
+    if(j == -1){
+        cout << "Dish not found in the Cart!" << endl;
+    }
+    else{
+    cout << "Enter the new quantity of the dish: " << endl;
+    int q;
+    cin >> q;
+        if(q > 0){
+            customers[i].bill_amount-=finddish(dish).price*customers[i].orders[j].second;
+            customers[i].orders[j].second = q;
+            customers[i].bill_amount+=finddish(dish).price*q;
+            cout << "Dish quantity updated successfully!" << endl;
+        }
+        else if(q < 0){
+            cout << "Invalid quantity entered!" << endl;
+        }
+        else{
+            customers[i].bill_amount-=finddish(dish).price*customers[i].orders[j].second;
+            customers[i].orders.erase(customers[i].orders.begin()+j);
+            cout << "Dish successfully removed from cart!" << endl;
+        }
+    }
+    }
+
+
 
 void customerservices(int i){
     int num;
@@ -66,33 +96,40 @@ void customerservices(int i){
     cout << "1. View available dishes and quantity" << endl;
     cout << "2. Search for a particular dish using its name"<<endl;
     cout << "3. Select dishes into cart" << endl;
-    cout << "4. View dishes in cart and total amount to be paid" << endl;
-    cout << "5. Place order" << endl;
-    cout << "6. Vote for dishes"<<endl;
-    cout << "7. Logout" << endl;
+    cout << "4. Edit cart" << endl;
+    cout << "5. View dishes in cart and total amount to be paid" << endl;
+    cout << "6. Place order" << endl;
+    cout << "7. Vote for dishes"<<endl;
+    cout << "8. Logout" << endl;
     cin >> num;
-    if(num == 1){
-        viewdishes();
+    switch(num){
+        case 1:
+            viewdishes();
+            break;
+        case 2:
+            searchdish();
+            break;
+        case 3:
+            add_dishes_to_cart(i);
+            break;
+        case 4:
+            editcart(i);
+            break;
+        case 5:
+            viewbill(i);
+            break;
+        case 6:
+            placeorder(i);
+            break;
+        case 7:
+            votedishes();
+            break;
+        case 8:
+            exit = true;
+            break;
+        default:
+            cout << "Invalid option entered!" << endl;
     }
-    if(num == 2){
-        searchdish();
     }
-    if(num == 3){
-        add_dishes_to_cart(i);
-    }
-    if(num == 4){
-        viewbill(i);
-    }
-    if(num == 5){
-        placeorder(i);
-    }
-    if(num == 6){
-        votedishes();
-    }
-    if(num == 7){
+}
 
-        cout << "You are successfully logged out!" << endl;
-        exit = true;
-    }
-}
-}
